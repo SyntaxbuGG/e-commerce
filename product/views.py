@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView
-
+from django.urls import reverse
 
 from .models import Product
 
@@ -12,6 +12,7 @@ class HomeView(ListView):
 
     def get_queryset(self):
         return Product.objects.all()[:12]
+
 
 class ProductListView(ListView):
     model = Product
