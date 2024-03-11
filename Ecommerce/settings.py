@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'django-insecure-%5a4vyv6vo2wu36_giy1by@n+)r5o*g=fp=*(tbm8)flr6m%m@
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-
 
 INTERNAL_IPS = [
     # ...
@@ -47,6 +45,7 @@ INSTALLED_APPS = [
     # third
     'mptt',
     'debug_toolbar',
+    'rest_framework',
 
     # custom
     'base.apps.BaseConfig',
@@ -54,6 +53,7 @@ INSTALLED_APPS = [
     'category.apps.CategoryConfig',
     'product.apps.ProductConfig',
     'order.apps.OrderConfig',
+    'cart.apps.CartConfig',
 ]
 
 MIDDLEWARE = [
@@ -81,13 +81,13 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'category.context_processors.categories',
+                'cart.context_processors.cart'
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'Ecommerce.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -98,7 +98,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -118,7 +117,6 @@ AUTH_PASSWORD_VALIDATORS = [
     # },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -130,7 +128,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
@@ -138,9 +135,12 @@ STATIC_URL = 'staticfiles/'
 
 STATICFILES_DIRS = [BASE_DIR / 'staticfiles/']
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'staticfiles/media'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'account.User'

@@ -61,8 +61,8 @@
                 <div class="col-lg-3 col-sm-6 col-8 order-2 order-lg-3">
                     <div class="d-flex justify-content-end mb-3 mb-lg-0">
                         <div class="widget-header">
-                        {% if user.is_authenticated %}
-                             <div>
+                            {% if user.is_authenticated %}
+                            <div>
                                 <a href="#"> {{ user.username }}</a> <span class="dark-transp"> | </span>
                                 <a href="{% url 'account-register:logout' %}">Log out</a>
                             </div>
@@ -70,15 +70,20 @@
 
                             <small class="title text-muted">Welcome guest!</small>
                             <div>
-                                <a href="{% url 'account-register:signin' %}">Sign in</a> <span class="dark-transp"> | </span>
+                                <a href="{% url 'account-register:signin' %}">Sign in</a> <span
+                                    class="dark-transp"> | </span>
                                 <a href="{% url 'account-register:register' %}"> Register</a>
                             </div>
                             {% endif %}
                         </div>
-                        <a href="./cart.html" class="widget-header pl-3 ml-3">
-                            <div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
-                            <span class="badge badge-pill badge-danger notify">0</span>
+                        <a href="{% url 'cart:cart_shop' %}" class="widget-header pl-3 ml-3">
+                            <div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i>
+                            </div>
+                            <span class="badge badge-pill badge-danger notify" id="cart_quantity">{{ cart|length }}</span>
                         </a>
+
+
+
                     </div> <!-- widgets-wrap.// -->
                 </div> <!-- col.// -->
             </div> <!-- row.// -->

@@ -1,9 +1,14 @@
+import os
+
 from django.db import models
 
 from base.models import TimeStampedModel
 from category.models import Category
 from account.models import User
-from product.managers import ProductManager
+from .managers import ProductManager
+
+
+
 
 
 class Color(TimeStampedModel):
@@ -29,18 +34,26 @@ class Product(TimeStampedModel):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.IntegerField(default=0)
     category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='products')
-    color = models.ManyToManyField(Color, blank=True)
-    size = models.ManyToManyField(Size, blank=True)
+    color = models.ManyToManyField(Color, blank=True,null=True)
+    size = models.ManyToManyField(Size, blank=True, null=True)
+
 
     custom = ProductManager()
     objects = models.Manager()
     def __str__(self):
         return self.title
 
+def product_image_upload(instance, filename):
+    # Get the category of the product
+    product_id = instance.product.id
+    # Generate the path for the image
+    path = os.path.join('product/images', str(product_id),filename)
+    return path
 
-class Images(TimeStampedModel):
+
+class ProductImage(TimeStampedModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to='product/images')
+    image = models.ImageField(upload_to=product_image_upload)
 
     def __str__(self):
         return self.product.title

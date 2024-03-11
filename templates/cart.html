@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Shopping cart {% endblock %}
+
+
+{% block content %}
+<section class="section-content padding-y bg">
+    <div class="container">
+
+
+        <div class="row">
+            <aside class="col-lg-9">
+                <div class="card">
+                    <table class="table table-borderless table-shopping-cart">
+                        <thead class="text-muted">
+                        <tr class="small text-uppercase">
+                            <th scope="col">Product</th>
+                            <th scope="col" width="120">Quantity</th>
+                            <th scope="col" width="120">Price</th>
+                            <th scope="col" class="text-right" width="200"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in cart_products %}
+                        <tr>
+
+                            <td>
+                                <figure class="itemside align-items-center">
+
+                                    <div class="aside"><img src="{% static product.images.first.image.url %}"
+                                                            class="img-sm"></div>
+                                    <figcaption class="info">
+                                        <a href="#" class="title text-dark">{{ product.title }}</a>
+
+                                    </figcaption>
+                                </figure>
+                            </td>
+                            <td>
+                                <!-- col.// -->
+                                <div class="col">
+                                    <div class="input-group input-spinner">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-light " type="button" id="qty-minus"><i
+                                                    class="fa fa-minus"></i></button>
+                                        </div>
+                                        <input type="text" class="form-control qty-cart"
+                                               data-product-id="{{ product.id }}" value="1">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-light" type="button" id="qty-plus"><i
+                                                    class="fa fa-plus"></i></button>
+                                        </div>
+                                    </div> <!-- input-group.// -->
+                                </div> <!-- col.// -->
+                            </td>
+                            <td>
+                                <div class="price-wrap">
+                                    <var class="price">{{ product.price }}</var>
+                                    <input type="hidden" id="product-id" data-product-id="{{ product.id }}">
+                                    <small class="text-muted"> $315.20 each </small>
+
+                                </div> <!-- price-wrap .// -->
+                            </td>
+                            <td class="text-right">
+                                <a href="" class="btn btn-danger"> Remove</a>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div> <!-- card.// -->
+
+            </aside> <!-- col.// -->
+            <aside class="col-lg-3">
+
+                <div class="card">
+                    <div class="card-body">
+                        <dl class="dlist-align">
+                            <dt>Total price:</dt>
+                            <dd class="text-right">$69.97</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Tax:</dt>
+                            <dd class="text-right"> $10.00</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Total:</dt>
+                            <dd class="text-right text-dark b"><strong>$59.97</strong></dd>
+                        </dl>
+                        <hr>
+                        <p class="text-center mb-3">
+                            <img src="" height="26">
+                        </p>
+                        <a href="./place-order.html" class="btn btn-primary btn-block"> Checkout </a>
+                        <a href="./store.html" class="btn btn-light btn-block">Continue Shopping</a>
+                    </div> <!-- card-body.// -->
+                </div> <!-- card.// -->
+
+            </aside> <!-- col.// -->
+
+
+        </div> <!-- row.// -->
+
+
+    </div> <!-- container .//  -->
+</section>
+
+<input type="hidden" id="cart-add-url" value="{% url 'cart:cart_shop' %}">
+<input type="hidden" id="csrf-token" value="{{ csrf_token }}">
+<input type="hidden" id="id_products" value="{{ get_products }}">
+<script src="{% static 'js/jquery.js' %}"></script>
+
+{% endblock %}

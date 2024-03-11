@@ -22,6 +22,13 @@ urlpatterns = [
     path('category/', include('category.urls')),
     path('', include('product.urls')),
     path('account/', include('account.urls')),
+    path('cart/', include('cart.urls')),
     path("__debug__/", include("debug_toolbar.urls")),
 
 ]
+
+urlpatterns_api = [
+    path('api/v1', include('rest_framework.urls'))
+]
+
+urlpatterns += urlpatterns_api

@@ -43,7 +43,7 @@ def sign_in(request):
             return redirect('product:home')
 
         else:
-            print(request)
+            print(request.POST)
 
     return render(request, 'sign-in.html')
 
